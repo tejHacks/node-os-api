@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #0d1117; font-family: 'Fira Code', monospace; color: #e6edf3; }
+    pre { background-color: #161b22; padding: 1rem; border-radius: 0.5rem; }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold text-green-400 mb-4">System Details (Tej's PC)</h1>
+    <div id="system-data" class="text-sm">
+      <pre>Loading system details...</pre>
+    </div>
+  </div>
+
+  <script>
+    async function fetchSystemData() {
+      try {
+        const response = await fetch('http://localhost:3001/system');
+        const data = await response.json();
+        if (data.status === 'success') {
+          const formattedData = JSON.stringify(data.data, null, 2)
+            .replace(/{/g, '<span class="text-purple-400">{</span>')
+            .replace(/}/g, '<span class="text-purple-400">}</span>')
+            .replace(/"([^"]+)":/g, '<span class="text-blue-400">"$1"</span>:');
+          document.getElementById('system-data').innerHTML = `
+            <pre class="text-green-400">${formattedData}</pre>
+          `;
+        } else {
+          document.getElementById('system-data').innerHTML = '<pre class="text-red-400">Error: ${data.message}</pre>';
+        }
+      } catch (error) {
+        document.getElementById('system-data').innerHTML = '<pre class="text-red-400">Failed to fetch system data</pre>';
+      }
+    }
+
+    fetchSystemData();
+    setInterval(fetchSystemData, 5000); // Update every 5s
+  </script>
+</body>
+</html>
