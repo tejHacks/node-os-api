@@ -39,6 +39,8 @@ app.get('/system', (req, res) => {
     };
 
     res.json({ status: 'success', data: systemData });
+    console.log('Hello world');
+    // JSON.stringify(res.json({status: 'success',data:systemData}));
   } catch (error) {
     res.status(500).json({
       status: 'error',
@@ -48,16 +50,12 @@ app.get('/system', (req, res) => {
   }
 });
 
-// Health check
+// Base endpoint 1 
 app.get('/', (req, res) => {
   res.json({ message: 'System OS API is live' });
 });
 
 
-//Health check for the API whether live or dead!
-// app.get('/health', (req, res) =>{
-//   res.json({message: 'System API Health check running live and is healthy'});
-// });
 
 
 app.listen(port, () => {

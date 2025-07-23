@@ -162,9 +162,9 @@ System Details (Tej's PC)
 }
 ```
 
-
 ### 🛠️ Installation
-****
+
+
 ```git clone <https://github.com/your-username/system-info-api.git>
 cd system-info-api
 npm install
@@ -176,8 +176,8 @@ Server will run on: <http://localhost:3001>
 🌍 CORS
 This API uses open CORS for testing. You can restrict it as needed:
 
-```
-app.use(cors({
+
+```app.use(cors({
   origin: ['http://localhost:8000'],
   methods: ['GET']
 }));
